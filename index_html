@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>תיעוד ידיעות - הדמוקרטים</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background: #f9f9f9;
+      padding: 0;
+      margin: 0;
+    }
+    .banner {
+      background-color: #003366;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      border-radius: 0 0 12px 12px;
+      position: relative;
+    }
+    .banner h1 {
+      font-size: 20px;
+      margin: 5px 0 0 0;
+    }
+    .info-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 26px;
+      height: 26px;
+      background-color: #00aaff;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 6px;
+      text-align: center;
+      line-height: 26px;
+      cursor: pointer;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      right: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      direction: rtl;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .close {
+      float: left;
+      font-size: 24px;
+      font-weight: bold;
+      color: #888;
+      cursor: pointer;
+    }
+    .container {
+      padding: 20px;
+      width: 90%;
+      max-width: 700px;
+      margin: auto;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="url"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #002855;
+    }
+    #responseMessage {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+    @media (max-width: 480px) {
+      .banner h1 {
+        font-size: 16px;
+      }
+      .info-button {
+        top: 8px;
+        left: 8px;
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+        line-height: 24px;
+      }
+      input, select, textarea, button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <div class="info-button" onclick="document.getElementById('infoModal').style.display='block'">i</div>
+    <h1>תיעוד ידיעות - הדמוקרטים</h1>
+  </div>
+
+  <!-- חלון מידע -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('infoModal').style.display='none'">✖</span>
+      <h3>ℹ️ הסבר על מטרת הדף ואופן השימוש</h3>
+      <p>דף זה נועד לתעד <strong>ידיעות חדשותיות</strong> על נושאים רלוונטיים למעקב אחר מגמות והשפעות.</p>
+      <p><strong>מה צריך לעשות?</strong></p>
+      <ul>
+        <li>בחרו את הנושא אליו קשורה הידיעה.</li>
+        <li>סמנו האם הידיעה מחזקת או מחלישה את הנושא כפי שהוא מנוסח.</li>
+        <li>הדביקו את הקישור לידיעה.</li>
+        <li>במידה והידיעה היא מהעבר, ניתן להוסיף את תאריך הפרסום.</li>
+        <li>אם יש לכם הערות נוספות – הוסיפו אותן בשדה הרלוונטי.</li>
+      </ul>
+      <p>🙏 תודה על שיתוף הפעולה!</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <form id="newsForm">
+      <label>הנושא הרלוונטי:
+        <select name="topic" id="topicSelect" required>
+          <option value="">טוען נושאים...</option>
+        </select>
+      </label>
+
+      <label>השפעת הידיעה:
+        <select name="impact" required>
+          <option value="מחזק מאוד">מחזק מאוד</option>
+          <option value="מחזק">מחזק</option>
+          <option value="מחזק קצת">מחזק קצת</option>
+          <option value="מחליש קצת">מחליש קצת</option>
+          <option value="מחליש">מחליש</option>
+          <option value="מחליש מאוד">מחליש מאוד</option>
+        </select>
+      </label>
+
+      <label>קישור לידיעה:
+        <input type="url" name="link" required placeholder="הדבק כאן את הקישור">
+      </label>
+
+      <label>מוסיף הידיעה:
+        <input type="text" name="submitter" placeholder="הכנס שם או כינוי">
+      </label>
+
+      <label>תאריך המידע (במידה ושונה מתאריך הזנת הידיעה):
+        <input type="date" name="info_date">
+      </label>
+
+      <label>הערות:
+        <textarea name="comments" placeholder="הקלד כאן כל דבר נוסף..."></textarea>
+      </label>
+
+      <button type="submit">שלח</button>
+      <p id="responseMessage"></p>
+    </form>
+  </div>
+
+  <script>
+    // קריאת נושאים מהקובץ החדש
+    fetch('https://script.google.com/macros/s/AKfycbw1YyiC0L2-QXIOEjlVMnyRQeNBH5M3xZjuAYJpU9Aebv-7Q7uhsAvWQwTcDzy5yKDH/exec')
+      .then(response => response.json())
+      .then(topics => {
+        const select = document.getElementById('topicSelect');
+        select.innerHTML = '<option value="">בחר נושא...</option>';
+        topics.forEach(topic => {
+          const option = document.createElement('option');
+          option.value = topic;
+          option.textContent = topic;
+          select.appendChild(option);
+        });
+      })
+      .catch(error => {
+        console.error('שגיאה בטעינת נושאים:', error);
+        const select = document.getElementById('topicSelect');
+        select.innerHTML = '<option value="">נושאים לא נטענו</option>';
+      });
+
+    // שליחת טופס לכתובת החדשה
+    document.getElementById('newsForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+
+      fetch('https://script.google.com/macros/s/AKfycbycTD2iERX2yExQYuHznvPAUcWP0COIKUWenGkYYQq53yARpZGflN9MDIf98gkYTijk/exec', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(result => {
+        document.getElementById('responseMessage').innerText = 'הטופס נשלח בהצלחה!';
+        document.getElementById('newsForm').reset();
+      })
+      .catch(error => {
+        document.getElementById('responseMessage').innerText = 'אירעה שגיאה בשליחה. נסה שוב.';
+        console.error(error);
+      });
+    });
+
+    // סגירת חלון מידע בלחיצה על הרקע
+    window.onclick = function(event) {
+      const modal = document.getElementById('infoModal');
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+</body>
+</html>
